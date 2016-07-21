@@ -18,7 +18,8 @@ public class Calculadora {
     
     
     public Calculadora(String s){
-        infix = "";
+        infix = s;
+        resultado = "4";
         numbers = new StackNum();
     }
     
@@ -34,18 +35,23 @@ public class Calculadora {
                     break;
                 case '+':
                     numbers.push( numbers.pop() + numbers.pop() );
+                    i++;
                     break;
                 case '-':
                     numbers.push( -numbers.pop() + numbers.pop() );
+                    i++;
                     break;
                 case '*':
                     numbers.push( numbers.pop() * numbers.pop() );
+                    i++;
                     break;
                 case '/':
                     numbers.push( 1/numbers.pop() + numbers.pop() );
+                    i++;
                     break;
                 default:
                     numbers.push(Integer.parseInt( Character.toString( infix.charAt(i) ) ));
+                    i++;
                     break;
             }
         }
@@ -55,6 +61,10 @@ public class Calculadora {
     
     public String getResultado(){
         return resultado;
+    }
+    
+    public String getInfix(){
+        return infix;
     }
     
     
