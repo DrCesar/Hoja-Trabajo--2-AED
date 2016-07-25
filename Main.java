@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  *
@@ -20,22 +21,24 @@ public class Main {
     
     
     public static void main(String[] args){
-        File archivo = null;
-        Scanner sc;
+        URL location = Main.class.getResource("Main.class");
+        String dir = location.getPath();
         Calculadora calc = new Calculadora("");;
 
-        try(BufferedReader br = new BufferedReader(new FileReader("/home/wadeowen/NetBeansProjects/HojaDeTrabajo#2-Stacks-Estructuras/build/classes/StacksPackage/expresion.txt"))) {
-            String line = br.readLine();
-            calc = new Calculadora(line);
+        try(BufferedReader buff = new BufferedReader(new FileReader(dir.substring(0,dir.indexOf("Main"))+"/expresion.txt"))) {
+            
+            String linea ;
+            
+            while ((linea = buff.readLine()) != null){
+                calc = new Calculadora(linea);
+                calc.infixToPostfix();
+                System.out.println(calc.getInfix());
+                System.out.println("El resultado es: "+calc.getResultado());
+            }
+            
         } catch(IOException e){
             e.printStackTrace();
         }
-        
-        System.out.println(calc.getResultado());
-        System.out.println(calc.getInfix());
-        
-        calc.infixToPostfix();
-        System.out.println(calc.getResultado());
 
     }
     
